@@ -1,0 +1,57 @@
+---
+- name: Verify
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Check Vector directory
+      ansible.builtin.stat:
+        path: /etc/vector
+      register: vector_dir
+
+    - name: Assert Vector directory exists
+      ansible.builtin.assert:
+        that: vector_dir.stat.exists and vector_dir.stat.isdir
+        msg: "Vector directory does not exist"
+
+    - name: Check Vector config file
+      ansible.builtin.stat:
+        path: /etc/vector/vector.yaml
+      register: vector_config
+
+    - name: Assert Vector config exists
+      ansible.builtin.assert:
+        that: vector_config.stat.exists
+        msg: "Vector config file does not exist"
+
+    - name: Check Vector binary
+      ansible.builtin.stat:
+        path: /usr/local/bin/vector
+      register: vector_binary
+
+    - name: Assert Vector binary exists
+      ansible.builtin.assert:
+        that: vector_binary.stat.exists
+        msg: "Vector binary does not exist"
+
+    - name: Check Vector version
+      ansible.builtin.command: vector --version
+      register: vector_version
+      changed_when: false
+
+    - name: Display Vector version
+      ansible.builtin.debug:
+        msg: "Vector version: {{ vector_version.stdout }}"
+
+    - name: Validate Vector configuration
+      ansible.builtin.command: vector validate --config-yaml /etc/vector/vector.yaml
+      register: config_validation
+      changed_when: false
+
+    - name: Assert Vector config is valid
+      ansible.builtin.assert:
+        that: config_validation.rc == 0
+        msg: "Vector configuration is invalid"
+
+    - name: Display final success message
+      ansible.builtin.debug:
+        msg: "✓ All tests passed for Vector role"

@@ -1,0 +1,21 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+platforms:
+  - name: ubuntu
+    image: python:3.9-slim
+    pre_build_image: true
+    command: sleep infinity
+
+  - name: oraclelinux
+    image: python:3.9
+    pre_build_image: true
+    command: sleep infinity
+
+provisioner:
+  name: ansible
+
+verifier:
+  name: ansible

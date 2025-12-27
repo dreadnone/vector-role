@@ -1,0 +1,18 @@
+---
+api:
+  enabled: true
+  address: 127.0.0.1:8686
+  playground: false
+
+sources:
+  demo_logs:
+    type: demo_logs
+    format: json
+    interval: 1
+
+sinks:
+  stdout:
+    type: console
+    inputs: ["demo_logs"]
+    encoding:
+      codec: json
