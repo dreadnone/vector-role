@@ -1,6 +1,6 @@
 # Ansible Role: `vector-role`
 
-[![GitHub tag](https://img.shields.io/github/v/tag/Dmitriy-py/vector-role?sort=semver&color=blue)](https://github.com/Dmitriy-py/vector-role/releases)
+
 
 Устанавливает и конфигурирует **Vector** (современный, высокопроизводительный сборщик логов и метрик). Роль настраивает Vector для сбора системных метрик хоста и их последующей пересылки в указанный приемник (Sink), который по умолчанию настроен на ClickHouse через HTTP API.
 
@@ -48,4 +48,3 @@
 Лицензия
 MIT
 
-Автор
